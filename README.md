@@ -11,7 +11,13 @@ Run the following in the terminal or anaconda prompt:
 conda env create -f inf221_conda_env.yml
 ```
 
-or if you already have the same environment installed simply run:
+or if you already have the inf221 environment installed simply run:
 ```
-conda activate
+conda activate inf221
 ```
+
+to deactivate.
+
+´´´
+conda deactivate
+´´´

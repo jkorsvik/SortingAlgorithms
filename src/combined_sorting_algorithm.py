@@ -1,4 +1,4 @@
-
+from copy import copy
 def mergesort_combined(A, threshold: int=10):
     if len(A) < threshold:
         return not_inplace_insertion_sort(A)
@@ -27,7 +27,7 @@ def mergesort_combined(A, threshold: int=10):
 
 
 def not_inplace_insertion_sort(A):
-    temp = A 
+    temp = copy(A) 
     for j in range(1, len(temp)):
         key = temp[j]
 
