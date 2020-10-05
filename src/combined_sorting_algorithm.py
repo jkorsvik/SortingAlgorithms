@@ -1,39 +1,48 @@
 from copy import copy
-def mergesort_combined(A, threshold: int=10):
-    if len(A) < threshold:
-        return not_inplace_insertion_sort(A)
+from quadratic_sorting_algorithms import insertion_sort
 
-    result = []
-    mid = int(len(A) / 2)
 
-    y = mergesort_combined(A[:mid])
-    z = mergesort_combined(A[mid:])
+def mergesort_combined(A, 
+                    threshold: int=10, 
+                    comb_algo: str="insertion"
+    ):
 
-    i = 0
-    j = 0
-
-    while i < len(y) and j < len(z):
-        if y[i] > z[j]:
-            result.append(z[j])
-            j += 1
+    if len(A) > threshold: 
+        mid = len(A)//2 # Finding the mid of the array 
+        L = A[:mid] # Dividing the array elements  
+        R = A[mid:] # into 2 halves 
+  
+        mergesort_combined(L) # Sorting the first half 
+        mergesort_combined(R) # Sorting the second half 
+  
+        i = j = k = 0
+          
+        # Copy data from temp arrays L[] and R[] 
+        while i < len(L) and j < len(R): 
+            if L[i] < R[j]: 
+                A[k] = L[i] 
+                i+= 1
+            else: 
+                A[k] = R[j] 
+                j+= 1
+            k+= 1
+          
+        # Checking if any element was left 
+        while i < len(L): 
+            A[k] = L[i] 
+            i+= 1
+            k+= 1
+          
+        while j < len(R): 
+            A[k] = R[j] 
+            j+= 1
+            k+= 1
+    else:
+        if comb_algo == "insertion":
+            insertion_sort(A)
         else:
-            result.append(y[i])
-            i += 1
-            
-    result += y[i:]
-    result += z[j:]
+            A.sort()
 
 
 
 
-def not_inplace_insertion_sort(A):
-    temp = copy(A) 
-    for j in range(1, len(temp)):
-        key = temp[j]
-
-        while j > 0 and temp[j-1] > key:
-            # Swap
-            temp[j], temp[j-1] = temp[j-1], temp[j]
-            j -= 1
-    print(temp)
-    return temp

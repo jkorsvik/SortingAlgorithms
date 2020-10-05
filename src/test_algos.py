@@ -4,10 +4,10 @@ Test-suite for sorting algos
 import unittest
 import numpy as np
 
-from src.linear_sorting_algorithms import radixsort
-from src.quadratic_sorting_algorithms import bubble_sort, insertion_sort
-from src.subquad_sorting_algorithms import quicksort, mergesort
-from src.combined_sorting_algorithm import mergesort_combined
+from linear_sorting_algorithms import radixsort
+from quadratic_sorting_algorithms import bubble_sort, insertion_sort
+from subquad_sorting_algorithms import quicksort, mergesort
+from combined_sorting_algorithm import mergesort_combined
 
 
 class TestSortingAlgorithms(unittest.TestCase):
@@ -18,7 +18,7 @@ class TestSortingAlgorithms(unittest.TestCase):
         return [123.342, 54352.8765, 432523.435432, 765436.3241]
 
     def get_random_array(self):
-        return np.random.rand(100)
+        return np.random.random(1000)
 
     def check_if_ascending(self, A):
         for i in range( 1, len(A) ):
