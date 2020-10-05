@@ -16,8 +16,8 @@ or if you already have the inf221 environment installed simply run:
 conda activate inf221
 ```
 
-to deactivate.
+to deactivate:
 
-´´´
+```
 conda deactivate
-´´´
+```
