@@ -12,6 +12,7 @@ def mergesort(A):
 
     y = mergesort(A[:mid])
     z = mergesort(A[mid:])
+    
 
     i = 0
     j = 0
@@ -22,6 +23,7 @@ def mergesort(A):
         else:
             result.append(y[i])
             i += 1
+
     result += y[i:]
     result += z[j:]
 

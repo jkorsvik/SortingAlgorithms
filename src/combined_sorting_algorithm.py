@@ -35,4 +35,5 @@ def not_inplace_insertion_sort(A):
             # Swap
             temp[j], temp[j-1] = temp[j-1], temp[j]
             j -= 1
+    print(temp)
     return temp
