@@ -1,4 +1,5 @@
 from copy import copy
+import numpy as np
 from quadratic_sorting_algorithms import insertion_sort
 
 
@@ -76,7 +77,7 @@ def mergesort_combined(A: list,
         if comb_algo == "insertion":
             insertion_sort(A)
         else:
-            A.sort()
+            A = np.sort(A)
 
 
 

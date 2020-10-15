@@ -84,7 +84,6 @@ class TestSortingAlgorithms(unittest.TestCase):
         if not self.check_if_ascending(C):
             self.fail("Insertion sort failed on random numbers")
 
-
     def test_merge_sort(self):
         A = self.get_int_arr()
         mergesort(A)

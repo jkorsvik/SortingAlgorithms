@@ -76,7 +76,7 @@ def quick_sort(array, start, end):
     return array
 
 def quicksort(array):
-    quick_sort(array, 0, len(array)-1)
+    array = quick_sort(array, 0, len(array)-1)
 
 
 
