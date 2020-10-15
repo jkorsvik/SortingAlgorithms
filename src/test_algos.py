@@ -21,25 +21,28 @@ class TestSortingAlgorithms(unittest.TestCase):
         return np.random.random(1000)
 
     def check_if_ascending(self, A):
-        for i in range( 1, len(A) ):
-            if A[i - 1] >= A[i]:
+        for i in range( 1, len(A)):
+            if A[i - 1] > A[i]:
                 return False
 
         return True
 
-    def test_upper(self):
-        self.assertEqual('foo'.upper(), 'FOO')
+    """def test_sorting_algorithms(self, function):
+        A = self.get_int_arr()
+        function(A)
+        if not self.check_if_ascending(A):
+            self.fail(f"{function.__name__} failed on integers")
 
-    def test_isupper(self):
-        self.assertTrue('FOO'.isupper())
-        self.assertFalse('Foo'.isupper())
+        B = self.get_float_arr()
+        function(B)
+        if not self.check_if_ascending(B):
+            self.fail(f"{function.__name__} failed on floats")
 
-    def test_split(self):
-        s = 'hello world'
-        self.assertEqual(s.split(), ['hello', 'world'])
-        # check that s.split fails when the separator is not a string
-        with self.assertRaises(TypeError):
-            s.split(2)
+        C = self.get_random_array()
+        function(C)
+        if not self.check_if_ascending(C):
+            self.fail(f"{function.__name__} failed on random numbers")"""
+
 
     def test_radix(self):
         A = self.get_int_arr()
@@ -114,6 +117,41 @@ class TestSortingAlgorithms(unittest.TestCase):
         mergesort_combined(C)
         if not self.check_if_ascending(C):
             self.fail("mergesort combined with insertion failed on random numbers")
+
+        
+    def test_quicksort(self):
+        A = self.get_int_arr()
+        quicksort(A)
+        if not self.check_if_ascending(A):
+            self.fail("quicksort failed on integers")
+
+        B = self.get_float_arr()
+        quicksort(B)
+        if not self.check_if_ascending(B):
+            self.fail("quicksort failed on floats")
+
+        C = self.get_random_array()
+        quicksort(C)
+        if not self.check_if_ascending(C):
+            self.fail("quicksort failed on random numbers")
+
+    """def test_quicksort(self):
+        A = self.get_int_arr()
+        mergesort1(A)
+        if not self.check_if_ascending(A):
+            self.fail("mergesort1 failed on integers")
+
+        B = self.get_float_arr()
+        mergesort1(B)
+        if not self.check_if_ascending(B):
+            self.fail("mergesort1 failed on floats")
+
+        C = self.get_random_array()
+        mergesort1(C)
+        if not self.check_if_ascending(C):
+            self.fail("mergesort1 failed on random numbers")"""
+
+
 
 if __name__ == '__main__':
     unittest.main()

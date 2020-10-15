@@ -4,70 +4,48 @@ Algorithms for sorting with Theta(n*log(n)) as time complexity
 
 
 def mergesort(A):
-    if len(A) >1: 
-        mid = len(A)//2 # Finding the mid of the array 
-        L = A[:mid] # Dividing the array elements  
-        R = A[mid:] # into 2 halves 
+    if len(A) > 1: 
+        mid = int(len(A)/2) # Finding the mid of the array 
+        left_array = A[:mid] # Dividing the array elements  
+        right_array = A[mid:] # into 2 halves 
   
-        mergesort(L) # Sorting the first half 
-        mergesort(R) # Sorting the second half 
+        mergesort(left_array) # Sorting the first half 
+        mergesort(right_array) # Sorting the second half 
   
-        i = j = k = 0
+
+        # Merge process starts on lowest level first and completes finally at 
+        # left_array[0:mid] and right_array[mid:len(A)], where mid is len(a)//2
+
+        left_index = 0
+        right_index = 0
+        copy_index = 0
           
-        # Copy data from temp arrays L[] and R[] 
-        while i < len(L) and j < len(R): 
-            if L[i] < R[j]: 
-                A[k] = L[i] 
-                i+= 1
+        
+        while left_index < len(left_array) and right_index < len(right_array): 
+
+            if left_array[left_index] < right_array[right_index]: 
+                A[copy_index] = left_array[left_index] 
+                left_index += 1
+
             else: 
-                A[k] = R[j] 
-                j+= 1
-            k+= 1
+                A[copy_index] = right_array[right_index] 
+                right_index += 1
+
+            copy_index += 1
           
-        # Checking if any element was left 
-        while i < len(L): 
-            A[k] = L[i] 
-            i+= 1
-            k+= 1
+        # Checking if elements are remaining in Left or Right
+        # left_array is copied first since indexing(copy_index) goes from left to right
+        while left_index < len(left_array): 
+
+            A[copy_index] = left_array[left_index] 
+            left_index += 1
+            copy_index += 1
           
-        while j < len(R): 
-            A[k] = R[j] 
-            j+= 1
-            k+= 1
-  
+        while right_index < len(right_array): 
 
-    """if len(A) < 2:
-        return A
-    
-
-
-    result = []
-    mid = int(len(A) / 2)
-    print(mid)
-    print(A)
-
-    y = A[:mid]
-    z = A[mid:]
-    print("====================\n", y, z)
-    y = mergesort(y)
-    z = mergesort(z)
-    
-
-    
-    i = 0
-    j = 0
-
-    while (len(y) > 0) and (len(z) > 0):
-        if y[i] > z[j]:
-            result.append(z[j])
-            j += 1
-        else:
-            result.append(y[i])
-            i += 1
-
-    result += y[i:]
-    result += z[j:]
-    A = result"""
+            A[copy_index] = right_array[right_index] 
+            right_index += 1
+            copy_index += 1
 
 
 
@@ -81,18 +59,28 @@ def partition(array, start, end):
     pivotindex = start
     pivotvalue = array[end]
 
-    for i in range(start,end):
-        if array[i] < pivotvalue:
-            swap(array, i, pivotindex)
+    for left_index in range(start,end):
+        if array[left_index] < pivotvalue:
+            swap(array, left_index, pivotindex)
             pivotindex += 1
     swap(array, pivotindex, end)
     
     return array, pivotindex
 
-def quicksort(array, start, end):
+def quick_sort(array, start, end):
     if start < end:
         array, index = partition(array, start, end)
-        array = quicksort(array, start, index-1)
-        array = quicksort(array, index+1, end)
+        array = quick_sort(array, start, index-1)
+        array = quick_sort(array, index+1, end)
         
     return array
+
+def quicksort(array):
+    quick_sort(array, 0, len(array)-1)
+
+
+
+
+
+
+    
