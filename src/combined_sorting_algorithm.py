@@ -1,7 +1,11 @@
 from copy import copy
 import numpy as np
-from quadratic_sorting_algorithms import insertion_sort
+import os
 
+if os.getcwd().split('\\')[-1] == "notebooks":
+    from src.quadratic_sorting_algorithms import insertion_sort
+else:
+    from quadratic_sorting_algorithms import insertion_sort
 
 def mergesort_combined(A: list, 
                     threshold: int=11, 

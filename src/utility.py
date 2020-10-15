@@ -5,8 +5,6 @@ import matplotlib.pyplot as plt
 from copy import copy
 from statistics import mean, stdev
 
-from quadratic_sorting_algorithms import insertion_sort, bubble_sort
-
 
 
 def repeating_timer(record, iters=10, *args_, **kwargs_):
