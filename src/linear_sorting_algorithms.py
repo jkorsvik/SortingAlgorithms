@@ -1,4 +1,4 @@
-def radixsort(A):
+def radixsort(A: list[int]) -> None:
     """
     Radix sort
 
