@@ -27,22 +27,6 @@ class TestSortingAlgorithms(unittest.TestCase):
 
         return True
 
-    """def test_sorting_algorithms(self, function):
-        A = self.get_int_arr()
-        function(A)
-        if not self.check_if_ascending(A):
-            self.fail(f"{function.__name__} failed on integers")
-
-        B = self.get_float_arr()
-        function(B)
-        if not self.check_if_ascending(B):
-            self.fail(f"{function.__name__} failed on floats")
-
-        C = self.get_random_array()
-        function(C)
-        if not self.check_if_ascending(C):
-            self.fail(f"{function.__name__} failed on random numbers")"""
-
 
     def test_radix(self):
         A = self.get_int_arr()
@@ -134,21 +118,21 @@ class TestSortingAlgorithms(unittest.TestCase):
         if not self.check_if_ascending(C):
             self.fail("quicksort failed on random numbers")
 
-    """def test_quicksort(self):
+    """def test_sorting_algorithms(self, function):
         A = self.get_int_arr()
-        mergesort1(A)
+        function(A)
         if not self.check_if_ascending(A):
-            self.fail("mergesort1 failed on integers")
+            self.fail(f"{function.__name__} failed on integers")
 
         B = self.get_float_arr()
-        mergesort1(B)
+        function(B)
         if not self.check_if_ascending(B):
-            self.fail("mergesort1 failed on floats")
+            self.fail(f"{function.__name__} failed on floats")
 
         C = self.get_random_array()
-        mergesort1(C)
+        function(C)
         if not self.check_if_ascending(C):
-            self.fail("mergesort1 failed on random numbers")"""
+            self.fail(f"{function.__name__} failed on random numbers")"""
 
 
 

@@ -1,10 +1,13 @@
 import functools
 import time
+import numpy as np
+import matplotlib.pyplot as plt
 from copy import copy
 from statistics import mean, stdev
 
 from quadratic_sorting_algorithms import insertion_sort, bubble_sort
-import numpy as np
+
+
 
 def repeating_timer(record, iters=10, *args_, **kwargs_):
     def inner_function(func):
@@ -48,12 +51,53 @@ def time_sorting_algorithms(
 
     return record
 
-A = np.random.random(1000)
 
-d = time_sorting_algorithms([insertion_sort, bubble_sort], A)
+class ArrayGenerator():
+    """
+    Generatorclass for creating arrays of 2^n size. Useful for
+    analazing log of 2 algorithms as we of have given compute problems
+    """    
 
-print(d)
+    def __init__(
+        self,
+        seed: int=None
+    ):
+        """
+        Set seed for numpy RNG 
+        """
+        self.seed = seed
+        self.rng = np.random.default_rng(seed=seed)
 
+    def sorted_array(self, n):
+        return np.arange(0,2**n)
 
+    def reversed_array(self, n):
+        return np.arange(2**n, 0, -1)
+    
+    def random_array(self, n):
+        return self.rng.random(2**n)
 
+    def structured_array(self, n):
+        """
+        Creates an array with an obvious structure, already ascending.
+        """
 
+        array = np.arange(0,2**n)
+
+        shuffle_range = np.int64((2**n)//(n*(n/2)))
+        
+        for i in range(0, 2**n, shuffle_range):
+
+            #In place shuffle with instances RNG.(numpy.random.default_rng(seed))
+            self.rng.shuffle(array[i: i + shuffle_range])
+
+        return array
+
+if __name__ == "__main__":
+
+    # Testing structured data
+    gen = ArrayGenerator(seed=12)
+
+    a = gen.structured_array(6)
+    plt.plot(a)
+    plt.show()
