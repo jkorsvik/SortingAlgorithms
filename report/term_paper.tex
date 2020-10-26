@@ -63,7 +63,7 @@
 \affiliation{}  % separates Jane's and Joe's author block
 
 \author{Yva Sandvik}
-\email{yva.jacob.sandvik@nmbu.no}
+\email{ysandvik@nmbu.no}
 
 %% The abstract is a short summary of the work to be presented in the
 %% article.
@@ -79,17 +79,41 @@
 
 \section{Introduction}\label{sec:intro}
 
-In this section, provide a brief introduction to the term paper's
-topic and give an overview of the material that follows.
+A sorting algorithm puts the elements of a list in a certain order. It is important that these algorithms are efficient in order to optimize other complex algorithms that implement these sorting algorithms when they require lists to be in a sorted order. 
+
+This paper investigates the benchmarks of given, as well as our own, implementations of various sorting algorithms. We explore their efficiency depending on the type of elements the list contains, as well as comparing the sorting algorithms to each other.
 
 \section{Theory}\label{sec:theory}
+
+The following algorithms will be investigated in this term paper:
+\begin{itemize}
+\item Quadratic algorithms
+  \begin{itemize}
+  \item insertion sort
+  \item bubble sort
+  \end{itemize}
+\item Sub-quadratic algorithms
+  \begin{itemize}
+  \item mergesort
+  \item quicksort
+  \end{itemize}
+\item Combined algorithm
+  \begin{itemize}
+  \item mergesort switching to insertion sort for small data
+  \end{itemize}
+\item Built-in sorting functions
+  \begin{itemize}
+  \item Python `sort()`
+  \item NumPy `sort()`
+  \end{itemize}
+\end{itemize}
 
 Provide a brief description of the algorithms you will be
 investigating, including pseudocode for the algorithms. Describe in
 particular the expected runtime of algorithms in terms of problem
 size.  Use a separate subsection for each algorithm.
 
-\subsection{Algo 1}\label{sec:algo1}
+\subsection{Algorithm 1 - Insertion sort}\label{sec:algo1}
 
 \begin{listing}
   % Pseudocode caption above the code.
@@ -125,7 +149,7 @@ is
 
 It is achieved for correctly sorted input data.
 
-\subsection{Algo 2}\label{sec:algo2}
+\subsection{Algorithm 2 - Bubblesort}\label{sec:algo2}
 
 Lorem ipsum \dots
 
