@@ -1,9 +1,9 @@
 """
 Algorithms for sorting with Theta(n*log(n)) as time complexity
 """
+import numpy as np
 
-
-def mergesort(A):
+def mergesort(A: np.array or list):
     if len(A) > 1: 
         mid = int(len(A)/2) # Finding the mid of the array 
         left_array = A[:mid] # Dividing the array elements  

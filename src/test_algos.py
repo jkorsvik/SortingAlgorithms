@@ -15,7 +15,7 @@ class TestSortingAlgorithms(unittest.TestCase):
         return [18,5,100,3,1,19,6,0,7,4,2]
 
     def get_float_arr(self):
-        return [123.342, 54352.8765, 432523.435432, 765436.3241]
+        return [123.342, 54352.8765, 432523.435432, 765436.3241, 4215213.534241, 643123.124552]
 
     def get_random_array(self):
         return np.random.random(1000)

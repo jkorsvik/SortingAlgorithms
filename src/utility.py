@@ -7,11 +7,12 @@ from statistics import mean, stdev
 
 
 
-def repeating_timer(record, iters=10, *args_, **kwargs_):
+def repeating_timer(record, iters, verbose, *args_, **kwargs_):
     def inner_function(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            print(f"Timing array of {len(kwargs['array'])} elements {iters} times")
+            if verbose:
+                print(f"Timing array of {len(kwargs['array'])} elements {iters} times")
             for algorithm in kwargs['function_list']:
                 array_copy = copy(kwargs['array'])
                 record[algorithm.__name__] = []
@@ -22,11 +23,13 @@ def repeating_timer(record, iters=10, *args_, **kwargs_):
                     run_time = end_time - start_time
                     record[algorithm.__name__].append(run_time)
                     array_copy = copy(kwargs['array'])
-                print("Finished {} in mean {} +-[{}] secs".format(
-                    repr(algorithm.__name__), 
-                    round(mean(record[algorithm.__name__]), 3),
-                    round(stdev(record[algorithm.__name__]), 5)
-                ))
+                    
+                if verbose:    
+                    print("Finished {} in mean {} +-[{}] secs".format(
+                        repr(algorithm.__name__), 
+                        round(mean(record[algorithm.__name__]), 3),
+                        round(stdev(record[algorithm.__name__]), 5)
+                    ))
         return wrapper
     return inner_function
 
@@ -35,12 +38,13 @@ def repeating_timer(record, iters=10, *args_, **kwargs_):
 def time_sorting_algorithms(
     functions: list, 
     array: list or np.array, 
-    iters: int=10
+    iters: int=10,
+    verbose: bool=False
 ) -> dict:
 
     record = dict()
 
-    @repeating_timer(record=record, iters=iters)
+    @repeating_timer(record=record, iters=iters, verbose=verbose)
     def time_algorithms(function_list: list, array: list or np.array):
         for function in function_list:
             function(copy(array))
@@ -90,6 +94,9 @@ class ArrayGenerator():
             self.rng.shuffle(array[i: i + shuffle_range])
 
         return array
+    
+    def integer_array(self, n, low=0, high=1000):
+        return self.rng.integers(low, high, size=2**n)
 
 if __name__ == "__main__":
 
