@@ -2,8 +2,9 @@ from copy import copy
 import numpy as np
 import os
 
+path_suffix = os.path.normpath(os.getcwd()).split("\\")[-1]
 
-if os.path.normpath(os.getcwd()) == "notebooks":
+if path_suffix == "notebooks":
     from src.quadratic_sorting_algorithms import insertion_sort
 else:
     from quadratic_sorting_algorithms import insertion_sort
