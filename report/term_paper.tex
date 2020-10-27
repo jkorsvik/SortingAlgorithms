@@ -79,9 +79,9 @@
 
 \section{Introduction}\label{sec:intro}
 
-A sorting algorithm puts the elements of a list in a certain order. It is important that these algorithms are efficient in order to optimize other complex algorithms that implement these sorting algorithms when they require lists to be in a sorted order. 
+A sorting algorithm puts the elements of a list in a certain order. These algorithms need to be efficient in order to optimize other complex algorithms that implement the sorting algorithms when they require lists to be in a sorted order. 
 
-This paper investigates the benchmarks of given, as well as our own, implementations of various sorting algorithms. We explore their efficiency depending on the type of elements the list contains, as well as comparing the sorting algorithms to each other.
+This paper investigates the benchmarks of given, as well as our own, implementations of various sorting algorithms. We explore their efficiency depending on two variables; the type of elements a list contains as well as the lengths of the lists that are to be sorted.  
 
 \section{Theory}\label{sec:theory}
 
@@ -106,12 +106,18 @@ The following algorithms will be investigated in this term paper:
   \item Python `sort()`
   \item NumPy `sort()`
   \end{itemize}
+\item Possibly a few more if we have enough time
+  \begin{itemize}
+  \item Radix sort
+  \item Heap sort
+  \end{itemize}
 \end{itemize}
 
-Provide a brief description of the algorithms you will be
-investigating, including pseudocode for the algorithms. Describe in
-particular the expected runtime of algorithms in terms of problem
-size.  Use a separate subsection for each algorithm.
+The first two algorithms we analyse are the quadratic sorting algorithms insertion sort and bubble sort. These two sorting algorithms are known as quadratic sorting algorithms because their Big O time complexity is $O(n^2)$.
+
+Insertion sort is a simple comparison based sorting algorithm that iterates through a list one step at and starts by looking at the second value in an array and compares it to the one before, finding the correct position for the value in the sorted end of the input list (left side).
+
+Bubble sort...
 
 \subsection{Algorithm 1 - Insertion sort}\label{sec:algo1}
 
@@ -119,10 +125,7 @@ size.  Use a separate subsection for each algorithm.
   % Pseudocode caption above the code.
   \caption{Insertion sort algorithm from \citet[Ch.~2.1]{CLRS_2009}.}
   \label{lst:insertion_algo}
-  %
-  % For documentation on how to typeset CLRS-style pseudocode, see
-  % https://www.cs.dartmouth.edu/~thc/clrscode/clrscode3e.pdf
-  %
+
   \begin{codebox}
     \Procname{$\proc{Insertion-Sort}(A)$}
     \li \For $j \gets 2$ \To $\attrib{A}{length}$
@@ -139,43 +142,113 @@ size.  Use a separate subsection for each algorithm.
   \end{codebox}
 \end{listing}
 
-Pseudocode for the first algorithm is shown in
-Listing~\ref{lst:insertion_algo}. Best case runtime for this algorithm
-is
+Pseudocode for the insertion sort is shown in
+listing~\ref{lst:insertion_algo}. 
+Best case runtime for this algorithm is:
 
 \begin{equation}
   T(n) = \Theta(n) \;.  \label{eq:ins_sort_best}
 \end{equation}
 
-It is achieved for correctly sorted input data.
+This is achieved when the input array is already sorted. Meaning the input value in each iteration is only compared to the rightmost value of the sorted list. 
 
-\subsection{Algorithm 2 - Bubblesort}\label{sec:algo2}
+Worst case runtime occurs if the input list is in reversed order. This gives a quadratic running time:
 
-Lorem ipsum \dots
+\begin{equation}
+  T(n) = \Theta(n^2) \;.  \label{eq:ins_sort_best}
+\end{equation}
 
+The average runtime is also quadratic, making insertion sort a bad choice for sorting large lists, however it is one of the best and quickest alternatives when it comes to sorting smaller lists. 
+
+We are going to compare insertion sort to several other comparison based sorting algorithms, such as bubble sort, quick sort and merge sort.
+
+\subsection{Algorithm 2 - Bubble sort}\label{sec:algo2}
+
+\begin{listing}
+  % Pseudocode caption above the code.
+  \caption{Bubble sort algorithm from \citet[Ch.~2.1]{CLRS_2009}.}
+  \label{lst:bubble_algo}
+ 
+  \begin{codebox}
+    \Procname{$\proc{Bubble Sort}(A)$}
+    \li $swapped = true$
+
+  \end{codebox}
+\end{listing}
+
+Pseudocode for the bubble sort is shown in listing~\ref{lst:bubble_algo}. 
+
+\subsection{Algorithm 3 - Merge sort}\label{sec:algo2}
+
+\begin{listing}
+  % Pseudocode caption above the code.
+  \caption{Merge sort algorithm from \citet[Ch.~2.1]{CLRS_2009}.}
+  \label{lst:merge_algo}
+
+  \begin{codebox}
+    \Procname{$\proc{Merge Sort}(A)$}
+
+  \end{codebox}
+\end{listing}
+
+Pseudocode for the merge sort algorithm is shown in listing~\ref{lst:merge_algo}. 
+
+\subsection{Algorithm 4 - Quick sort}\label{sec:algo2}
+
+\begin{listing}
+  % Pseudocode caption above the code.
+  \caption{Quick sort algorithm from \citet[Ch.~2.1]{CLRS_2009}.}
+  \label{lst:quick_algo}
+  
+  \begin{codebox}
+    \Procname{$\proc{Quick Sort}(A)$}
+
+  \end{codebox}
+\end{listing}
+
+Pseudocode for the quick sort algorithm is shown in 
+listing~\ref{lst:quick_algo}. 
+
+\subsection{Algorithm 5 - Merge sort combined}\label{sec:algo2}
+
+\begin{listing}
+  % Pseudocode caption above the code.
+  \caption{Merge sort combined algorithm from \citet[Ch.~2.1]{CLRS_2009}.}
+  \label{lst:mergecombined_algo}
+  
+  \begin{codebox}
+    \Procname{$\proc{Merge Sort Combined}(A)$}
+
+  \end{codebox}
+\end{listing}
+
+Pseudocode for the merge sort combined algorithm is shown in listing~\ref{lst:mergecombined_algo}. 
 
 \section{Methods}\label{sec:methods}
 
-In this section, you shall described how you performed the
-benchmarks:
+Short description of what we have done so far and how:
 \begin{itemize}
-\item What test-data did you use and how was it generated?
-\item How did you execute your benchmarks?
-\item How did you measure runtimes?
-\item What kind of computer did you use, and what software versions?
-\item Provide git hashes of all relevant files!
-\item This section should be divided into several subsections.
+\item Our test data is generated using the class function ArrayGenerator found in our utility file.
+\item First test data is generated, then our benchmark function times how long each algorithm uses to sort given lists with given lengths.  
+\item The timer function times each test a given number of repetitions and returns all the results (so that they can be saved and used later), as well as showing the mean.
+\item Mac OS and Windows 10, Python version 3.8.3 and 3.29?
+\item Git hashes are provided in table 1.
 \end{itemize}
 
 \begin{listing}
   % Listing captions above the listing.   
-  \caption{Draft benchmark setup.}
+  \caption{Expert from benchmark code.}
   \label{lst:bench_setup}
   \begin{lstlisting}
-times = []
-for k in range(1, 5):
-   n = 2**k
+for algorithm in kwargs['function_list']:
+     array_copy = copy(kwargs['array'])
+     record[algorithm.__name__] = []
+     for _ in range(iters):
+         start_time = time.perf_counter()
+         algorithm(array_copy) # Runs algo
+         end_time = time.perf_counter()
    times.append(bench(func, n))
+   
   \end{lstlisting}
 \end{listing}
 
@@ -187,8 +260,10 @@ for k in range(1, 5):
   \begin{tabular}{ll}
     \hline
     File & Git hash \\\hline
-    \verb!run_bench.ipynb! & \verb!42a44d2a6! \\
-    \verb!results.pkl! & \verb!65342aed2! \\\hline
+    \verb!utility.py! & \verb!8ec07210f! \\
+    \verb!src! & \verb!396d8a309! \\
+    \verb!plot_creation.ipynb! & \verb!8ec07210f! \\
+    \verb!benchmark_results.csv! & \verb!88c28d55c! \\\hline
   \end{tabular}
 \end{table}
 
@@ -196,18 +271,29 @@ for k in range(1, 5):
 
 \begin{figure}
   \centering
-  \includegraphics{sample_plot}
+  \includegraphics{mergesort}
   % figure captions below figure
-  \caption{Benchmark results for \dots.}
+  \caption{Benchmark results for merge sort algorithm.}
   \label{fig:bench}
 \end{figure}
 
-Here, you should present your results. Provide clear figures with tidy
-lettering in legible font sizes. Figures should not be resized when
-included, so prepare them for the column width of 84~mm. For good
-quality, export figures as PDF files from Python.
+\begin{figure}
+  \centering
+  \includegraphics{insertion_sort}
+  % figure captions below figure
+  \caption{Benchmark results for insertion sort algorithm.}
+  \label{fig:bench}
+\end{figure}
 
-The results section should be divided into several subsections.
+\begin{figure}
+  \centering
+  \includegraphics{bubble_sort}
+  % figure captions below figure
+  \caption{Benchmark results for bubble sort algorithm.}
+  \label{fig:bench}
+\end{figure}
+
+Until now have found that insertion sort and bubble sort which are quadratic in time complexity combined with other methods like for example merge sort, drastically reduce sorting time by reducing the callstack and memory complexity. Shown in results, by optimizing the difference beneath merge sort.
 
 \section{Discussion}\label{sec:discussion}
 
@@ -223,6 +309,9 @@ We are grateful to \dots for \dots.
 %% The next two lines define the bibliography style to be used, and
 %% the bibliography file.
 \bibliographystyle{ACM-Reference-Format}
-\bibliography{sample_bib}
+\bibliography{References
+Iterative Quick Sort - GeeksforGeeks. 2020. GeeksforGeeks. https://www.geeksforgeeks.org/iterative-quick-sort/?fbclid=IwAR2ziWGZKt7nrgiD94kKu2if00gLmh3j2oNR6DUnSsL2b1AoLMsjvpARgYk.}
+\bibliography{Insertion sort. 2020. En.wikipedia.org. https://en.wikipedia.org/wiki/Insertion_sort.}
+\bibliography{Comparison of Sorting Algorithms. 2020. Medium. https://medium.com/@tssovi/comparison-of-sorting-algorithms-298fdf037c8f.}
 
 \end{document}
