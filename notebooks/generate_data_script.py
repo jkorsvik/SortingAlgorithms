@@ -56,7 +56,7 @@ for N, Array in test_data.items():
                 
                 df_results = df_results.append(
                     {
-                    "Algorithm": algorithm, "N^2": N, "TypeArray": TypeArray, "Time": time
+                    "Algorithm": algorithm, "2^N": N, "TypeArray": TypeArray, "Time": time
                     }, 
                     ignore_index=True
                 )
