@@ -79,13 +79,11 @@
 
 \section{Introduction}\label{sec:intro}
 
-A sorting algorithm puts the elements of a list in a certain order. These algorithms need to be efficient in order to optimize other complex algorithms that implement the sorting algorithms when they require lists to be in a sorted order. 
+Sorting algorithms are used to solve one of the key problems of computer science known as “The sorting problem”. This involves an input sequence of n numbers $(a_1, a_2, … , a_n)$, where the output is a permutation of the input sequence such that the numbers are ordered in an ascending order. The two main aspects to a sorting algorithm is its time complexity (speed) and its space complexity (memory usage). (Kilde: Lecture 6 ipynb, Plesser)
 
-This paper investigates the benchmarks of given, as well as our own, implementations of various sorting algorithms. We explore their efficiency depending on two variables; the type of elements a list contains as well as the lengths of the lists that are to be sorted.  
+During this investigation we have assessed the performance of these sorting algorithms under certain assumptions regarding their time complexity. We explored their efficiency depending on the type of elements in a list that are to be sorted, as well as the length of the lists. 
 
-\section{Theory}\label{sec:theory}
-
-The following algorithms will be investigated in this term paper:
+In the following subsections we will provide theory, pseudocode as well as details surrounding the methods used when comparing the following sorting algorithms: 
 \begin{itemize}
 \item Quadratic algorithms
   \begin{itemize}
@@ -112,6 +110,8 @@ The following algorithms will be investigated in this term paper:
   \item Heap sort
   \end{itemize}
 \end{itemize}
+
+\section{Theory}\label{sec:theory}
 
 The first two algorithms we analyse are the quadratic sorting algorithms insertion sort and bubble sort. These two sorting algorithms are known as quadratic sorting algorithms because their Big O time complexity is $O(n^2)$.
 
@@ -271,25 +271,9 @@ for algorithm in kwargs['function_list']:
 
 \begin{figure}
   \centering
-  \includegraphics{mergesort}
+  \includegraphics{foo}
   % figure captions below figure
-  \caption{Benchmark results for merge sort algorithm.}
-  \label{fig:bench}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics{insertion_sort}
-  % figure captions below figure
-  \caption{Benchmark results for insertion sort algorithm.}
-  \label{fig:bench}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics{bubble_sort}
-  % figure captions below figure
-  \caption{Benchmark results for bubble sort algorithm.}
+  \caption{Benchmark results for insertion sort and bubble sort.}
   \label{fig:bench}
 \end{figure}
 
