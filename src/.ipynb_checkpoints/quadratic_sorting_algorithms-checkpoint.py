@@ -2,11 +2,8 @@
 Algorithms with Theta(n^2) time complexity, 
 both of them have O(n) space complexity which gives them an advantage in memory dependents task with small arrays
 """
-import numpy as np
-from numba import jit
 
 
-@jit() 
 def insertion_sort(A):
     for j in range(1, len(A)):
         key = A[j]
@@ -17,7 +14,7 @@ def insertion_sort(A):
             j -= 1
 
 
-@jit() 
+
 def bubble_sort(A):
     n = len(A)
     has_swapped = True

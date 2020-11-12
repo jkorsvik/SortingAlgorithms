@@ -1,3 +1,8 @@
+import numpy as np
+from numba import jit
+
+
+@jit() 
 def radixsort(A: list) -> None:
     """
     Radix sort
@@ -14,6 +19,7 @@ def radixsort(A: list) -> None:
         place *= 10
 
 # Using counting sort to sort the elements in the basis of significant places
+@jit() 
 def countingSort(A, place):
     size = len(A)
     output = [0] * size

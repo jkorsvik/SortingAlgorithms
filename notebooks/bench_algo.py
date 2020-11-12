@@ -12,14 +12,24 @@ sys.path.append("..")
 sys.setrecursionlimit(int(1e6))
 
 from src.utility import time_sorting_algorithms, ArrayGenerator
+from src.quadratic_sorting_algorithms import bubble_sort, insertion_sort
 
 
-def bench_algos(list_of_algorithms: list, N, seed=42):
+def bench_algos(list_of_algorithms: list,
+    N, 
+    seed=12, 
+    cols={
+        "Ascending" : np.single, 
+        "Descending" : np.single, 
+        "Random" : np.single, 
+        "Structured" : np.single, 
+        "Integers" :np.int32
+    }
+) -> pd.DataFrame:
+
     if type(list_of_algorithms) != list:
         list_of_algorithms = list(list_of_algorithms)
     array_gen = ArrayGenerator(seed=seed)
-
-    cols = {"Ascending" : np.single, "Descending" : np.single, "Random" : np.single, "Structured" : np.single, "Integers" :np.int32}
 
     test_data = dict()
 
@@ -37,16 +47,17 @@ def bench_algos(list_of_algorithms: list, N, seed=42):
 
     for N, Array in test_data.items():
         for TypeArray in cols.keys():
-            time_and_unpack_to_df(df, list_of_algorithms, N, Array, TypeArray)
+            df = time_and_unpack_to_df(df, list_of_algorithms, N, Array, TypeArray)
 
-
+    return df
 
 def time_and_unpack_to_df(df: pd.DataFrame, 
     list_of_algorithms: list,
     N: int,
     Array: np.array or list,
     TypeArray: str
-):
+) -> pd.DataFrame:
+
     for algorithm, times in time_sorting_algorithms(
                 functions=list_of_algorithms, 
                 array=Array[TypeArray].to_numpy(), 
@@ -58,7 +69,18 @@ def time_and_unpack_to_df(df: pd.DataFrame,
                     
                     df = df.append(
                         {
-                        "Algorithm": algorithm, "2^N: N, "TypeArray": TypeArray, "Time": time
+                        "Algorithm": algorithm, "2^N": N, "TypeArray": TypeArray, "Time": time
                         }, 
                         ignore_index=True
                     )
+
+    return df
+
+if __name__ == "__main__":
+    # Test of functionality
+    quadratic_algorithms = [bubble_sort, insertion_sort]
+    df_res = bench_algos(quadratic_algorithms, N=8)
+    print(df_res.head(), df_res.tail())
+
+    
+    

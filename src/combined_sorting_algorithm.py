@@ -2,6 +2,8 @@ from copy import copy
 import numpy as np
 import os
 
+from numba import jit
+
 path_suffix = os.path.normpath(os.getcwd()).split("\\")[-1]
 
 if path_suffix == "notebooks":
@@ -9,8 +11,10 @@ if path_suffix == "notebooks":
 else:
     from quadratic_sorting_algorithms import insertion_sort
 
+
+@jit()
 def mergesort_combined(A: list, 
-                    threshold: int=11, 
+                    threshold: int=34, 
                     comb_algo: str="insertion"
     ):
     """

@@ -2,9 +2,7 @@
 Algorithms for sorting with Theta(n*log(n)) as time complexity
 """
 import numpy as np
-from numba import jit
 
-@jit() 
 def mergesort(A: np.array or list):
     if len(A) > 1: 
         mid = int(len(A)/2) # Finding the mid of the array 
@@ -50,7 +48,6 @@ def mergesort(A: np.array or list):
             copy_index += 1
 
 
-@jit() 
 def mergesort_iterative(A: np.array or list):
 
     new_list = map(lambda x: [x], A)
@@ -74,12 +71,11 @@ def mergesort_iterative(A: np.array or list):
 
 
 
-@jit() 
+
 def swap(array, a, b):
     array[a], array[b] = array[b], array[a]
     return array
 
-@jit() 
 def partition(array, start, end):
     
     pivot_index = start
@@ -93,7 +89,6 @@ def partition(array, start, end):
     
     return array, pivot_index
 
-@jit() 
 def quick_sort(array, start, end):
     if start < end:
         array, index = partition(array, start, end)
@@ -102,18 +97,17 @@ def quick_sort(array, start, end):
         
     return array
 
-@jit() 
 def quicksort(array):
     array = quick_sort(array, 0, len(array)-1)
 
 
 
 
-@jit() 
+
 def iterative_quicksort(array):
     quickSort_iterative(array, 0, len(array) - 1)
 
-@jit() 
+
 def iter_partition(arr, low, high): 
     i = ( low - 1 ) 
     x = arr[high] 
@@ -128,7 +122,7 @@ def iter_partition(arr, low, high):
     arr[i + 1], arr[high] = arr[high], arr[i + 1] 
     return (i + 1) 
   
-@jit() 
+
 def quickSort_iterative(arr, low, high): 
   
     # Create an auxiliary stack 
