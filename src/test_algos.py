@@ -6,7 +6,7 @@ import numpy as np
 
 from linear_sorting_algorithms import radixsort
 from quadratic_sorting_algorithms import bubble_sort, insertion_sort
-from subquad_sorting_algorithms import quicksort, mergesort
+from subquad_sorting_algorithms import quicksort, mergesort, iterative_quicksort
 from combined_sorting_algorithm import mergesort_combined
 
 
@@ -117,6 +117,24 @@ class TestSortingAlgorithms(unittest.TestCase):
         quicksort(C)
         if not self.check_if_ascending(C):
             self.fail("quicksort failed on random numbers")
+
+
+    def test_iterative_quicksort(self):
+        A = self.get_int_arr()
+        iterative_quicksort(A)
+        if not self.check_if_ascending(A):
+            self.fail("iterative_quicksort failed on integers")
+
+        B = self.get_float_arr()
+        iterative_quicksort(B)
+        if not self.check_if_ascending(B):
+            self.fail("iterative_quicksort failed on floats")
+
+        C = self.get_random_array()
+        iterative_quicksort(C)
+        if not self.check_if_ascending(C):
+            self.fail("iterative_quicksort failed on random numbers")
+
 
     """def test_sorting_algorithms(self, function):
         A = self.get_int_arr()

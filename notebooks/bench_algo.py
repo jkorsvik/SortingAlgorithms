@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import time
 
 import os
 import sys
@@ -24,7 +25,9 @@ def bench_algos(list_of_algorithms: list,
         "Random" : np.single, 
         "Structured" : np.single, 
         "Integers" :np.int32
-    }
+        },
+    csv_path_name=None
+    
 ) -> pd.DataFrame:
 
     if type(list_of_algorithms) != list:
@@ -47,8 +50,20 @@ def bench_algos(list_of_algorithms: list,
 
     for N, Array in test_data.items():
         for TypeArray in cols.keys():
-            df = time_and_unpack_to_df(df, list_of_algorithms, N, Array, TypeArray)
+            
+            df = time_and_unpack_to_df(
+                df, 
+                list_of_algorithms, 
+                N, 
+                Array, 
+                TypeArray
+                )
 
+            toc = time.perf_counter()
+            if csv_path_name is not None:
+                tic = time.perf_counter()
+                if toc - tic > 60*10:
+                    df.to_csv(csv_path_name)
     return df
 
 def time_and_unpack_to_df(df: pd.DataFrame, 

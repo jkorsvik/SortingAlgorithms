@@ -72,13 +72,13 @@ class ArrayGenerator():
 
     def sorted_array(self, n):
 
-        return np.arange(0, int(2**n))
+        return np.arange(0, int(2**n)).astype('int32')
 
     def reversed_array(self, n):
-        return np.arange(int(2**n), 0, -1)
+        return np.arange(int(2**n), 0, -1).astype('int32')
     
     def random_array(self, n):
-        return self.rng.random(int(2**n))
+        return self.rng.random(int(2**n)).astype('float16')
 
     def structured_array(self, n):
         """
@@ -93,10 +93,10 @@ class ArrayGenerator():
             #In place shuffle with instances RNG.(numpy.random.default_rng(seed))
             self.rng.shuffle(array[i: i + shuffle_range])
 
-        return array
+        return array.astype('int32')
     
     def integer_array(self, n, low=0, high=1000):
-        return self.rng.integers(low, high, size=int(2**n))
+        return self.rng.integers(low, high, size=int(2**n)).astype('u8')
 
 if __name__ == "__main__":
 

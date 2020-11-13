@@ -1,5 +1,5 @@
 """
-Algorithms for sorting with Theta(n*log(n)) as time complexity
+Algorithms for sorting with Theta(n*lowg(n)) as time complexity
 """
 import numpy as np
 from numba import jit
@@ -15,7 +15,7 @@ def mergesort(A: np.array or list):
         mergesort(right_array) # Sorting the second half 
   
 
-        # Merge process starts on lowest level first and completes finally at 
+        # Merge process starts on lowwest level first and completes finally at 
         # left_array[0:mid] and right_array[mid:len(A)], where mid is len(a)//2
 
         left_index = 0
@@ -53,7 +53,7 @@ def mergesort(A: np.array or list):
 @jit() 
 def mergesort_iterative(A: np.array or list):
 
-    new_list = map(lambda x: [x], A)
+    new_list = list(map(lambda x: [x], A))
     theLength = 1
 
     while theLength < len(A):
@@ -73,6 +73,96 @@ def mergesort_iterative(A: np.array or list):
     return temp_list[0]
 
 
+
+
+
+
+
+
+@jit() 
+def iterative_quicksort(array):
+    quickSort_iterative(array, 0, len(array) - 1)
+
+@jit() 
+def iter_partition(A, low, high):
+    # Median of three optimization, 
+    # see link: https://en.wikipedia.org/wiki/Quicksort#Lomuto_partition_scheme
+    mid = (low + high) // 2
+
+    if A[mid] < A[low]:
+        A[low], A[mid] = A[mid], A[low]
+    if A[high] < A[low]:
+        A[low], A[high] = A[high], A[low]
+    if A[mid] < A[high]:
+        A[mid], A[high] = A[high], A[mid]
+
+    pivot = A[high] 
+    i = (low - 1) 
+ 
+  
+    for j in range(low, high): 
+        if   A[j] <= pivot: 
+  
+            # increment index of smaller element 
+            i += + 1
+            A[i], A[j] = A[j], A[i] 
+  
+    A[i + 1], A[high] = A[high], A[i + 1] 
+    return (i + 1) 
+  
+@jit() 
+def quickSort_iterative(arr, low, high): 
+  
+    # Create an auxiliary stack 
+    size = high - low + 1
+    stack = [0] * (size) 
+  
+    # initialize top of stack 
+    top = -1
+  
+    # push initial values of loww and high to stack 
+    top = top + 1
+    stack[top] = low 
+    top = top + 1
+    stack[top] = high 
+  
+    # Keep popping from stack while is not empty 
+    while top >= 0: 
+  
+        # Pop high and loww 
+        high = stack[top] 
+        top = top - 1
+        low = stack[top] 
+        top = top - 1
+  
+        # Set pivot element at its correct position in 
+        # sorted array 
+        p = iter_partition(arr, low, high) 
+  
+        # If there are elements on left side of pivot, 
+        # then push left side to stack 
+        if p-1 > low: 
+            top = top + 1
+            stack[top] = low 
+            top = top + 1
+            stack[top] = p - 1
+  
+        # If there are elements on right side of pivot, 
+        # then push right side to stack 
+        if p + 1 < high: 
+            top = top + 1
+            stack[top] = p + 1
+            top = top + 1
+            stack[top] = high 
+
+
+
+
+    
+# Quicksort becomes useless in python, without modifications.
+# Recursion limits, worst case scenarios for already sorted input.
+# This is the reason the iterative version with pivot as median of three is
+# chosen for generating test results.
 
 @jit() 
 def swap(array, a, b):
@@ -105,75 +195,3 @@ def quick_sort(array, start, end):
 @jit() 
 def quicksort(array):
     array = quick_sort(array, 0, len(array)-1)
-
-
-
-
-@jit() 
-def iterative_quicksort(array):
-    quickSort_iterative(array, 0, len(array) - 1)
-
-@jit() 
-def iter_partition(arr, low, high): 
-    i = ( low - 1 ) 
-    x = arr[high] 
-  
-    for j in range(low, high): 
-        if   arr[j] <= x: 
-  
-            # increment index of smaller element 
-            i = i + 1
-            arr[i], arr[j] = arr[j], arr[i] 
-  
-    arr[i + 1], arr[high] = arr[high], arr[i + 1] 
-    return (i + 1) 
-  
-@jit() 
-def quickSort_iterative(arr, low, high): 
-  
-    # Create an auxiliary stack 
-    size = high - low + 1
-    stack = [0] * (size) 
-  
-    # initialize top of stack 
-    top = -1
-  
-    # push initial values of low and high to stack 
-    top = top + 1
-    stack[top] = low 
-    top = top + 1
-    stack[top] = high 
-  
-    # Keep popping from stack while is not empty 
-    while top >= 0: 
-  
-        # Pop high and low 
-        high = stack[top] 
-        top = top - 1
-        low = stack[top] 
-        top = top - 1
-  
-        # Set pivot element at its correct position in 
-        # sorted array 
-        p = iter_partition(arr, low, high) 
-  
-        # If there are elements on left side of pivot, 
-        # then push left side to stack 
-        if p-1 > low: 
-            top = top + 1
-            stack[top] = low 
-            top = top + 1
-            stack[top] = p - 1
-  
-        # If there are elements on right side of pivot, 
-        # then push right side to stack 
-        if p + 1 < high: 
-            top = top + 1
-            stack[top] = p + 1
-            top = top + 1
-            stack[top] = high 
-
-
-
-
-    

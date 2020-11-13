@@ -23,19 +23,23 @@ if Path('../data').exists():
     data_directory = PurePath("../data")
     print(data_directory)
 
+today = datetime.date.today()
+date_str = today.strftime("%d-%b-%Y")
+print(date_str)
+
 
 # N for 2-base generator, N^2
-N = 14
-cols = {"Ascending" : np.single, "Descending" : np.single, "Random" : np.single, "Structured" : np.single, "Integers" :np.int32}
+N = 27
+#cols = {"Ascending" : np.single, "Descending" : np.single, "Random" : np.single, "Structured" : np.single, "Integers" :np.int32}
 
 quadratic_algorithms = [bubble_sort, insertion_sort]
 subquad_algorithms = [iterative_quicksort, mergesort, mergesort_combined]
 
+result_path = f"{data_directory}/subquad_N{N}_{date_str}.csv"
 
-df_results = bench_algos(subquad_algorithms, N=22)
+df_results = bench_algos(subquad_algorithms, N=N, csv_path_name=result_path)
         
-today = datetime.date.today()
-date_str = today.strftime("%d-%b-%Y")
 
 
-df_results.to_csv(f"{data_directory}/benchmark_results_test{date_str}.csv")
+
+df_results.to_csv(result_path)
