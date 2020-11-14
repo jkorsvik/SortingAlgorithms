@@ -14,7 +14,7 @@ else:
 
 @jit()
 def mergesort_combined(A: list, 
-                    threshold: int=34, 
+                    threshold: int=142, 
                     comb_algo: str="insertion"
     ):
     """
