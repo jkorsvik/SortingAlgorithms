@@ -23,3 +23,7 @@ to deactivate:
 ```
 conda deactivate
 ```
+
+
+### Sources:
+https://is.muni.cz/th/gp4gz/bc.pdf
