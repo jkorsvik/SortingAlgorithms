@@ -36,4 +36,4 @@ def merge_csv(result_filename="merged_results"):
         print(f"csv was saved in {data_directory}")
 
 if __name__ == "__main__":
-    def merge_csv(result_filename="merged_results")
+    merge_csv(result_filename="merged_results")
