@@ -1,4 +1,6 @@
 import numpy as np
+from numba import jit
+ 
 
 def numpy_sort(array, method="quicksort"):
     """
@@ -18,8 +20,9 @@ kind            speed    worst case     work space      stable
 
     """
     return np.asarray(array).sort(kind=method)
+    
 
-
+@jit()
 def python_sort(array):
     """
     Python's sorted function uses the timsort algorithm.
