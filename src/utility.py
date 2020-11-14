@@ -78,7 +78,7 @@ class ArrayGenerator():
         return np.arange(int(2**n), 0, -1).astype('int32')
     
     def random_array(self, n):
-        return self.rng.random(int(2**n)).astype('float16')
+        return self.rng.random(int(2**n)).astype('float32')
 
     def structured_array(self, n):
         """
@@ -96,7 +96,7 @@ class ArrayGenerator():
         return array.astype('int32')
     
     def integer_array(self, n, low=0, high=1000):
-        return self.rng.integers(low, high, size=int(2**n)).astype('u8')
+        return self.rng.integers(low, int(2**n), size=int(2**n)).astype('u8')
 
 if __name__ == "__main__":
 

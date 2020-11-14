@@ -52,6 +52,7 @@ def mergesort(A: np.array or list):
 
 @jit() 
 def mergesort_iterative(A: np.array or list):
+    # Currently not working
 
     new_list = list(map(lambda x: [x], A))
     theLength = 1
@@ -84,9 +85,22 @@ def iterative_quicksort(array):
     quickSort_iterative(array, 0, len(array) - 1)
 
 @jit() 
-def iter_partition(A, low, high):
+def iterative_quicksort_shufffle(array, threshold_shuffle: int=5e6):
+    n = len(array)
+    if n > 5e6:
+        np.random.shuffle(array) # Inplace shuffle of arraylike element
+    # theta(n) = O(n)
+    # and the quicksort algorithm is O(nlg(n)) for random arrays.
+    # Handles worst case after median of three, structured data(nearly sorted)
+    # Obvious remain scenarios that are not handled, arrays consisting of many identical values
+    # Creating a combined quicksort with insertion sort, might be adventageus 
+    quickSort_iterative(array, 0, n - 1)
+
+@jit()
+def median_of_three(A, low, high):
     # Median of three optimization, 
     # see link: https://en.wikipedia.org/wiki/Quicksort#Lomuto_partition_scheme
+    # handles worst-case sorted_data, descending or ascending
     mid = (low + high) // 2
 
     if A[mid] < A[low]:
@@ -96,6 +110,10 @@ def iter_partition(A, low, high):
     if A[mid] < A[high]:
         A[mid], A[high] = A[high], A[mid]
 
+@jit() 
+def iter_partition(A, low, high):
+
+    median_of_three(A, low, high)
     pivot = A[high] 
     i = (low - 1) 
  
