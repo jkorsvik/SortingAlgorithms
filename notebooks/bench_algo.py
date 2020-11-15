@@ -41,27 +41,24 @@ def bench_algos(list_of_algorithms: list,
     Returns:
         pd.DataFrame: cols["Algorithm", "2^N", "TypeArray", "Time"]
     """
-
     if type(list_of_algorithms) != list:
         list_of_algorithms = list(list_of_algorithms)
     array_gen = ArrayGenerator(seed=seed)
 
-    test_data = dict()
-
-    for i in range(1, N+1):
-        data = np.array([array_gen.sorted_array(i),
-                array_gen.reversed_array(i),
-                array_gen.random_array(i),
-                array_gen.structured_array(i),
-                array_gen.integer_array(i)
-            ])
-        test_data[i] = pd.DataFrame(columns=cols.keys(), data=data.T).astype(cols)
-
+    methods = [array_gen.sorted_array, array_gen.reversed_array, 
+               array_gen.random_array, array_gen.structured_array,
+               array_gen.integer_array]
 
     df = pd.DataFrame(columns=["Algorithm", "2^N", "TypeArray", "Time"])
 
-    for N, Array in test_data.items():
-        for TypeArray in cols.keys():
+    for N in range(1, N+1):
+        for type_index, TypeArray in enumerate(cols.keys()):
+
+            func = methods[type_index]
+            Array = func(N)
+
+
+            print(f"\n ▒▒██▄▄ Using {TypeArray} Array ▄▄██▒▒")
 
             tic = time.perf_counter()
 
@@ -84,7 +81,7 @@ def bench_algos(list_of_algorithms: list,
 def time_and_unpack_to_df(df: pd.DataFrame, 
     list_of_algorithms: list,
     N: int,
-    Array: np.array or list,
+    Array: np.array,
     TypeArray: str
 ) -> pd.DataFrame:
     """Uses time_sorting_algorithms and unpacks result to dataframe.
@@ -93,7 +90,7 @@ def time_and_unpack_to_df(df: pd.DataFrame,
         df (pd.DataFrame): cols["Algorithm", "2^N", "TypeArray", "Time"]
         list_of_algorithms (list): list of callables
         N (int):  N gives number of elements in arrays as 2^N
-        Array (np.arrayorlist): array to be sorted by algorithms
+        Array (np.array | list): array to be sorted by algorithms
         TypeArray (str): what kind of array, ie sorted, reversed...
 
     Returns:
@@ -102,7 +99,7 @@ def time_and_unpack_to_df(df: pd.DataFrame,
 
     for algorithm, times in time_sorting_algorithms(
                 functions=list_of_algorithms, 
-                array=Array[TypeArray].to_numpy(), 
+                array=Array, 
                 iters=5, 
                 verbose=True
             ).items():

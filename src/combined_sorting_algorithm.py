@@ -6,7 +6,7 @@ from numba import jit
 
 path_suffix = os.path.normpath(os.getcwd()).split("\\")[-1]
 
-if path_suffix == "notebooks":
+if path_suffix in ["notebooks", "team_19_term_paper", "tests"]:
     from src.quadratic_sorting_algorithms import insertion_sort
 else:
     from quadratic_sorting_algorithms import insertion_sort

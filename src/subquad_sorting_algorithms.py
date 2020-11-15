@@ -93,7 +93,8 @@ def iterative_quicksort_shufffle(array, threshold_shuffle: int=5e6):
     # and the quicksort algorithm is O(nlg(n)) for random arrays.
     # Handles worst case after median of three, structured data(nearly sorted)
     # Obvious remain scenarios that are not handled, arrays consisting of many identical values
-    # Creating a combined quicksort with insertion sort, might be adventageus 
+    # Creating a combined quicksort with insertion sort, might be adventageus
+    # Is causing 2 to 4 times greater constants to time complexity depending on array 
     quickSort_iterative(array, 0, n - 1)
 
 @jit()
