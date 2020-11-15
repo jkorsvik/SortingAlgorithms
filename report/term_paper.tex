@@ -49,6 +49,8 @@
 
 \citestyle{acmauthoryear}
 
+
+
 %% end of the preamble, start of the body of the document source.
 \begin{document}
 
@@ -124,7 +126,7 @@ Finally we compared the built in sorting algorithms Python sort and Numpy sort.
   \label{lst:insertion_algo}
 
   \begin{codebox}
-    \Procname{$\proc{Insertion-Sort}(A)$}
+    \Procname{$\proc{Insertion\_Sort}(A)$}
     \li \For $j \gets 2$ \To $\attrib{A}{length}$
     \li \Do
     $\id{key} \gets A[j]$
@@ -166,9 +168,9 @@ Pseudocode for the bubble sort algorithm is shown in listing~\ref{lst:bubble_alg
   % Pseudocode caption above the code.
   \caption{Bubble sort algorithm from \citet[Ch.~2.1]{CLRS_2009}.}
   \label{lst:bubble_algo}
- 
+
   \begin{codebox}
-    \Procname{$\proc{Bubble Sort}(A)$}
+    \Procname{$\proc{Bubble\_Sort}(A)$}
     \li $n \gets \attrib{A}{length}$
     \li $swapped \gets \id{False}$
     \li $rounds \gets 0$
@@ -189,9 +191,9 @@ Pseudocode for the bubble sort algorithm is shown in listing~\ref{lst:bubble_alg
 \end{listing}
 
 
-\subsection{Algorithm 3 - Merge sort}\label{sec:algo2}
+\subsection{Algorithm 3 - Merge Sort}\label{sec:algo2}
 
-Merge sort is yet another comparison-based sorting algorithm that uses the divide-and-conquer approach which involves recursively merging together two pre-sorted arrays such that the resulting array also is sorted. (kilde: CLRS s. 30, og nettside, wikipedia). Merge sort is known to be quicker when sorting larger lists. Unlike insertion sort and bubble sort it does not iterate throught the entier list several times. 
+Merge sort is yet another comparison-based sorting algorithm that uses the divide-and-conquer approach which involves recursively merging together two pre-sorted arrays such that the resulting array also is sorted. (kilde: CLRS s. 30, og nettside, wikipedia). Merge sort is known to be quicker when sorting larger lists. Unlike insertion sort and bubble sort it does not iterate throught the entire list several times. 
 
 When sorting n objects, merge sort has a consistent average and worst case performance of: 
 
@@ -207,8 +209,39 @@ The implementation we have chosen of merge sort, as well as the most common impl
   \label{lst:merge_algo}
 
   \begin{codebox}
-    \Procname{$\proc{Merge Sort}(A)$}
-
+    \Procname{$\proc{Merge\_Sort}(A)$} 
+    \li \If $\attrib{A}{length}$ > 1: 
+    \li \Do
+    $mid \gets \attrib{A}{length}$/2: 
+    \li $L\_array\gets A[:mid]$
+    \li $R\_array\gets A[mid:]$
+    \li $mergesort(L\_array)$
+    \li $mergesort(R\_array)$
+    \li $L\_index\gets 0$
+    \li $L\_index\gets 0$
+    \li $copy\_index\gets 0$
+    \li \While $L\_index < L\_array$ $and$ $R\_index < R\_array$ 
+    \li \Do
+    \If $L\_array[L\_index] < R\_array[R\_index]$
+    \li \Do
+    $L\_index + 1$
+    \li \Else:
+    \li $A[copy\_index] \gets R\_array[R\_index]$
+    \li $R\_index + 1$
+    \End
+    \End
+    \li \While $L\_index < \attrib{L\_array}{length}$
+    \li \Do
+    $A[copy\_index] \gets L\_array[L\_index]$
+    \li $L\_index + 1$
+    \li $copy\_index + 1$
+    \End
+    \li \While $R\_index < \attrib{R\_array}{length}$
+    \li \Do
+    $A[copy\_index] \gets R\_array[R\_index]$
+    \li $R\_index + 1$
+    \li $copy\_index + 1$    
+    \End
   \end{codebox}
 \end{listing}
 
@@ -226,9 +259,44 @@ It shares the same avreage time complexity as merge sort. However the worst case
   \label{lst:quick_algo}
   
   \begin{codebox}
-    \Procname{$\proc{Quick Sort}(A)$}
+    \Procname{$\proc{Swap}(array, a, b)$}
+    \li $array[a], array[b] \gets array[b], array[a]$
+    \li \Return $array$
+  \end{codebox}
+
+  \begin{codebox}
+    \Procname{$\proc{Partition}(array, start, end)$}
+    \li $pivotindex \gets start$
+    \li $pivotvalue \gets array[end]$
+    \li \For $L\_index \gets start$ \To $end$ 
+    \li \Do
+    \If $array[L\_index] < pvotvalue$
+    \li \Do
+    $swap(array, L\_index, pivotindex)$
+    \li $pivotindex += 1$
+    \End
+    \End
+    \li $swap(array, pivotindex, end)$
+    \li \Return $array, pivotindex$
 
   \end{codebox}
+
+  \begin{codebox}
+    \Procname{$\proc{Quick\_sort}(array, start, end)$}
+    \li \If $start < end$
+    \li \Do
+    $array, index \gets partition(array, start, end)$
+    \li $array \gets quick\_sort(array, start, index-1)$
+    \li $array \gets quick\_sort(array, index+1, end)$
+    \li \Return array
+  \end{codebox}
+
+  \begin{codebox}
+    \Procname{$\proc{Quicksort}(array)$}
+    \li $array = quick\_sort(array, 0, \attrib{array}{length} - 1$
+
+  \end{codebox}
+
 \end{listing}
 
 Pseudocode for the quick sort algorithm is shown in 
@@ -243,15 +311,54 @@ Merge sort can be optimized to give "Merge sort combined" by integrating inserti
   \caption{Merge sort combined algorithm from \citet[Ch.~2.1]{CLRS_2009}.}
   \label{lst:mergecombined_algo}
   
-  \begin{codebox}
-    \Procname{$\proc{Merge Sort Combined}(A)$}
-
+ \begin{codebox}
+    \Procname{$\proc{Merge\_Sort\_Combined}(A\gets list, threshold\gets11, comb\_algo: str \gets"insertion")$} 
+    \li \If $\attrib{A}{length}$ > threshold
+    \li \Do
+    $mid \gets \attrib{A}{length}$ / 2 
+    \li $L\_array\gets A[:mid]$
+    \li $R\_array\gets A[mid:]$
+    \li $merge\_sort\_combined(L\_array, threshold, comb\_algo)$
+    \li $merge\_sort\_combined(R\_array, threshold, comb\_algo)$
+    \li $L\_index\gets 0$
+    \li $L\_index\gets 0$
+    \li $copy\_index\gets 0$
+    \li \While $L\_index < L\_array$ $and$ $R\_index < R\_array$ 
+    \li \Do
+    \If $L\_array[L\_index] < R\_array[R\_index]$
+    \li \Do
+    $L\_index + 1$
+    \li \Else
+    \li $A[copy\_index] \gets R\_array[R\_index]$
+    \li $R\_index + 1$
+    \End
+    \End
+    \li \While $L\_index < \attrib{L\_array}{length}$
+    \li \Do
+    $A[copy\_index] \gets L\_array[L\_index]$
+    \li $L\_index + 1$
+    \li $copy\_index + 1$
+    \End
+    \li \While $R\_index < \attrib{R\_array}{length}$
+    \li \Do
+    $A[copy\_index] \gets R\_array[R\_index]$
+    \li $R\_index + 1$
+    \li $copy\_index + 1$
+    \End
+    \li \Else:
+    \li \If $comb\_algo \gets "insertion"$
+    \li \Do
+    $insertion_sort(A)$
+    \li \Else:
+    $A \gets np.sort(A)$
   \end{codebox}
 \end{listing}
 
 Pseudocode for the merge sort combined algorithm is shown in listing~\ref{lst:mergecombined_algo}. 
 
 \subsection{Algorithm 6 - Python "sort()" }\label{sec:algo2}
+
+
 
 \subsection{Algorithm 7 - Numpy "sort()" }\label{sec:algo2}
 
