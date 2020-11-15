@@ -85,6 +85,8 @@ Sorting algorithms are used to solve one of the key problems of computer science
 
 During this investigation we have assessed the performance of the sorting algorithms listed below, under certain assumptions regarding their time complexity. We compared their performance when sorting lists containing different types of elements, as well as their performance as the length of the lists increases. 
 
+\section{Theory}\label{sec:theory}
+
 In the following subsections we will provide theory, pseudocode as well as details surrounding the methods used when comparing the following sorting algorithms: 
 
 \begin{itemize}
@@ -110,15 +112,20 @@ In the following subsections we will provide theory, pseudocode as well as detai
   \end{itemize}
 \end{itemize}
 
-\section{Theory}\label{sec:theory}
-
-The first two algorithms we analysed were the quadratic sorting algorithms Insertion sort and Bubble sort. These two sorting algorithms are known as quadratic sorting algorithms because their time complexity is $O(n^2)$.
- 
-We then moved onto the sub-quadratic algorithms Merge sort and Quick sort, sharing an avreage time complexity of $O(n\lg n)$. 
-
-Finally we compared the built in sorting algorithms Python sort and Numpy sort. 
-
 \subsection{Algorithm 1 - Insertion sort}\label{sec:algo1}
+Insertion sort (listing ~\ref{lst:insertion_algo}) is a simple in place and comparison based sorting algorithm. Best case runtime for this algorithm is:
+
+\begin{equation}
+  T(n) = \Theta(n) \;.  \label{eq:ins_sort_best}
+\end{equation}
+
+This is achieved when the input array is already sorted. The worst case runtime occurs if the input list is in reversed order. This gives a quadratic runtime of:
+
+\begin{equation}
+  T(n) = \Theta(n^2) \;  \label{eq:ins_sort_best}
+\end{equation}
+
+The average runtime is also quadratic, making insertion sort a bad choice for sorting large lists, however it is one of the best and quickest alternatives when it comes to sorting smaller lists. 
 
 \begin{listing}
   % Pseudocode caption above the code.
@@ -141,28 +148,9 @@ Finally we compared the built in sorting algorithms Python sort and Numpy sort.
   \end{codebox}
 \end{listing}
 
-Insertion sort is a simple in place and comparison based sorting algorithm. Best case runtime for this algorithm is:
-
-\begin{equation}
-  T(n) = \Theta(n) \;.  \label{eq:ins_sort_best}
-\end{equation}
-
-This is achieved when the input array is already sorted. The worst case runtime occurs if the input list is in reversed order. This gives a quadratic runtime of:
-
-\begin{equation}
-  T(n) = \Theta(n^2) \;  \label{eq:ins_sort_best}
-\end{equation}
-
-The average runtime is also quadratic, making insertion sort a bad choice for sorting large lists, however it is one of the best and quickest alternatives when it comes to sorting smaller lists. 
-
-Pseudocode for the insertion sort algorithm is shown in
-listing ~\ref{lst:insertion_algo}. 
-
 \subsection{Algorithm 2 - Bubble sort}\label{sec:algo2}
 
-Bubble sort is know as an inefficient sorting algorithm due to its simplicity. Although bubble sort and insertion sort  grow asymptotically at the same rate $\Theta(n^2)$, the difference in bubble sort and insertion sort lies in the number of comparisons. In contrast to insertion sort, bubble sort can make numerous comparisons that do not necessarily result in a swap, making it computationally less efficient.
-
-Pseudocode for the bubble sort algorithm is shown in listing~\ref{lst:bubble_algo}. 
+Bubble sort (listing~\ref{lst:bubble_algo}) is know as an inefficient sorting algorithm due to its simplicity. Although bubble sort and insertion sort  grow asymptotically at the same rate $\Theta(n^2)$, the difference in bubble sort and insertion sort lies in the number of comparisons. In contrast to insertion sort, bubble sort can make numerous comparisons that do not necessarily result in a swap, making it computationally less efficient.
 
 \begin{listing}
   % Pseudocode caption above the code.
@@ -193,7 +181,7 @@ Pseudocode for the bubble sort algorithm is shown in listing~\ref{lst:bubble_alg
 
 \subsection{Algorithm 3 - Merge Sort}\label{sec:algo2}
 
-Merge sort is yet another comparison-based sorting algorithm that uses the divide-and-conquer approach which involves recursively merging together two pre-sorted arrays such that the resulting array also is sorted. (kilde: CLRS s. 30, og nettside, wikipedia). Merge sort is known to be quicker when sorting larger lists. Unlike insertion sort and bubble sort it does not iterate throught the entire list several times. 
+Merge sort (listing~\ref{lst:merge_algo}) is yet another comparison-based sorting algorithm that uses the divide-and-conquer approach which involves recursively merging together two pre-sorted arrays such that the resulting array also is sorted. (kilde: CLRS s. 30, og nettside, wikipedia). Merge sort is known to be quicker when sorting larger lists. Unlike insertion sort and bubble sort it does not iterate throught the entire list several times. 
 
 When sorting n objects, merge sort has a consistent average and worst case performance of: 
 
@@ -241,15 +229,12 @@ The implementation we have chosen of merge sort, as well as the most common impl
     $A[copy\_index] \gets R\_array[R\_index]$
     \li $R\_index + 1$
     \li $copy\_index + 1$    
-    \End
   \end{codebox}
 \end{listing}
 
-Pseudocode for the merge sort algorithm is shown in listing~\ref{lst:merge_algo}. 
-
 \subsection{Algorithm 4 - Quick sort}\label{sec:algo2}
 
-Quick sort is an efficient in place divide-and-conquer sorting algorithm. When implemented well it can supposedly be about two or three times faster than its main competitors, such as merge sort. 
+Quick sort (listing~\ref{lst:quick_algo}) is an efficient in place divide-and-conquer sorting algorithm. When implemented well it can supposedly be about two or three times faster than its main competitors, such as merge sort. 
 
 It shares the same avreage time complexity as merge sort. However the worst case time complexity of quick sort is its main disadavantage, and is $\Theta(n^2)$ due to its need of a lot of comparisons in the worst case.  
 
@@ -299,12 +284,9 @@ It shares the same avreage time complexity as merge sort. However the worst case
 
 \end{listing}
 
-Pseudocode for the quick sort algorithm is shown in 
-listing~\ref{lst:quick_algo}. 
-
 \subsection{Algorithm 5 - Merge sort combined}\label{sec:algo2}
 
-Merge sort can be optimized to give "Merge sort combined" by integrating insertion sort and making it a hybrid algorithm. This takes adavantage of the fact that insertion sort performs well on smaller lists. It will therefor use fewer comparisons in the worst case than both merge sort and insertion sort, potentially making it a very efficient sorting algorithm.  
+Merge sort can be optimized to give "Merge sort combined" (listing~\ref{lst:mergecombined_algo}) by integrating insertion sort and making it a hybrid algorithm. This takes adavantage of the fact that insertion sort performs well on smaller lists. It will therefor use fewer comparisons in the worst case than both merge sort and insertion sort, potentially making it a very efficient sorting algorithm.  
 
 \begin{listing}
   % Pseudocode caption above the code.
@@ -353,8 +335,6 @@ Merge sort can be optimized to give "Merge sort combined" by integrating inserti
     $A \gets np.sort(A)$
   \end{codebox}
 \end{listing}
-
-Pseudocode for the merge sort combined algorithm is shown in listing~\ref{lst:mergecombined_algo}. 
 
 \subsection{Algorithm 6 - Python "sort()" }\label{sec:algo2}
 
@@ -406,6 +386,22 @@ for algorithm in kwargs['function_list']:
 \end{table}
 
 \section{Results}\label{sec:results}
+
+The first two algorithms we analysed were the quadratic sorting algorithms Insertion sort and Bubble sort. As mentioned in the theory section, these two sorting algorithms are known as quadratic sorting algorithms because their time complexity is $O(n^2)$.
+ 
+Plots \dots
+
+We then moved onto the sub-quadratic algorithms Merge sort and Quick sort, sharing an average time complexity of $O(n\lg n)$. 
+
+Plots \dots
+
+Furthermore we compared the subquadratic algorthims with the hybrid Merge Sort Combined.
+
+Plots \dots
+
+Finally we compared the built in sorting algorithms Python sort and Numpy sort, and added them to the previous comparison plot with the best performing algorithms. 
+
+Plot \dots
 
 \begin{figure}
   \centering
