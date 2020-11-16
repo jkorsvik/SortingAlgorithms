@@ -29,8 +29,53 @@ date_str = today.strftime("%d-%b-%Y")
 print(date_str)
 
 
+
+
 # N for 2-base generator, 2^N
-N = 28
+N = 26
+seed = None
+#cols = {"Ascending" : np.single, "Descending" : np.single, "Random" : np.single, "Structured" : np.single, "Integers" :np.int32}
+
+quadratic_algorithms = [bubble_sort, insertion_sort]
+subquad_algorithms = [python_sort, numpy_sort, 
+iterative_quicksort_shufffle, iterative_quicksort, mergesort, mergesort_combined]
+
+result_path = f"{data_directory}/subquad_N{N}_seed{seed}_median_of_three_QS_{date_str}.csv"
+#result_path = f"{data_directory}/quadratic_N{N}_seed{seed}_bubble_sort_mod_{date_str}.csv"
+
+df_results = bench_algos(
+    subquad_algorithms, 
+    N=N, seed=seed, 
+    csv_path_name=result_path)
+
+
+
+df_results.to_csv(result_path)
+
+
+# N for 2-base generator, 2^N
+N = 19
+seed = None
+#cols = {"Ascending" : np.single, "Descending" : np.single, "Random" : np.single, "Structured" : np.single, "Integers" :np.int32}
+
+quadratic_algorithms = [bubble_sort, insertion_sort]
+
+result_path = f"{data_directory}/quadratic_N{N}_seed{seed}_bubbleopt_{date_str}.csv"
+#result_path = f"{data_directory}/quadratic_N{N}_seed{seed}_bubble_sort_mod_{date_str}.csv"
+
+df_results = bench_algos(
+    quadratic_algorithms, 
+    N=N, seed=seed, 
+    csv_path_name=result_path)
+
+
+
+df_results.to_csv(result_path)
+
+
+
+# N for 2-base generator, 2^N
+N = 30
 seed = None
 #cols = {"Ascending" : np.single, "Descending" : np.single, "Random" : np.single, "Structured" : np.single, "Integers" :np.int32}
 
@@ -38,7 +83,7 @@ quadratic_algorithms = [bubble_sort, insertion_sort]
 subquad_algorithms = [python_sort, numpy_sort, 
 iterative_quicksort_shufffle, mergesort, mergesort_combined]
 
-result_path = f"{data_directory}/subquad_N{N}_seed{seed}_create_training_data_on_the_go_{date_str}.csv"
+result_path = f"{data_directory}/subquad_N{N}_seed{seed}_shuffle_QS_{date_str}.csv"
 #result_path = f"{data_directory}/quadratic_N{N}_seed{seed}_bubble_sort_mod_{date_str}.csv"
 
 df_results = bench_algos(
@@ -47,6 +92,7 @@ df_results = bench_algos(
     csv_path_name=result_path)
         
 
-
-
 df_results.to_csv(result_path)
+
+
+

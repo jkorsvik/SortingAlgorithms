@@ -51,36 +51,6 @@ def mergesort(A: np.array or list):
 
 
 @jit() 
-def mergesort_iterative(A: np.array or list):
-    # Currently not working
-
-    new_list = list(map(lambda x: [x], A))
-    theLength = 1
-
-    while theLength < len(A):
-        temp_list = []
-
-        pairs = zip(new_list[::2], new_list[1::2])
-
-        for pair in pairs:
-            temp_list.append( mergesort_iterative( pair[0], pair[1] ) )
-
-        if len(pairs) * 2 < len(new_list):
-            temp_list.append(new_list[-1])
-
-        theLength *= 2
-        new_list = temp_list
-
-    return temp_list[0]
-
-
-
-
-
-
-
-
-@jit() 
 def iterative_quicksort(array):
     quickSort_iterative(array, 0, len(array) - 1)
 
@@ -129,6 +99,7 @@ def iter_partition(A, low, high):
     A[i + 1], A[high] = A[high], A[i + 1] 
     return (i + 1) 
   
+
 @jit() 
 def quickSort_iterative(arr, low, high): 
   
@@ -214,3 +185,30 @@ def quick_sort(array, start, end):
 @jit() 
 def quicksort(array):
     array = quick_sort(array, 0, len(array)-1)
+
+
+
+
+
+@jit() 
+def mergesort_iterative(A: np.array or list):
+    raise NotImplementedError
+
+    new_list = list(map(lambda x: [x], A))
+    theLength = 1
+
+    while theLength < len(A):
+        temp_list = []
+
+        pairs = zip(new_list[::2], new_list[1::2])
+
+        for pair in pairs:
+            temp_list.append( mergesort_iterative( pair[0], pair[1] ) )
+
+        if len(pairs) * 2 < len(new_list):
+            temp_list.append(new_list[-1])
+
+        theLength *= 2
+        new_list = temp_list
+
+    return temp_list[0]
