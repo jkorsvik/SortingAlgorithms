@@ -86,7 +86,7 @@ class ArrayGenerator():
         """
         array = np.arange(0, int(2**n))
 
-        shuffle_range = np.int64((int(2**n))//(n*(n/2)))
+        shuffle_range = np.int64(((2**n))//((n**2)/2))
         
         for i in range(0, int(2**n), shuffle_range):
 
@@ -99,10 +99,10 @@ class ArrayGenerator():
         return self.rng.integers(low, int(2**n), size=int(2**n)).astype('u8')
 
 if __name__ == "__main__":
-
     # Testing structured data
     gen = ArrayGenerator(seed=12)
-
-    a = gen.structured_array(6)
-    plt.plot(a)
+    N = 5
+    x = np.arange(2**N, 0, -1)
+    a = gen.structured_array(N)
+    plt.barh(x, a)
     plt.show()
