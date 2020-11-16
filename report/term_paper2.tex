@@ -78,9 +78,9 @@
 
 \section{Introduction}\label{sec:intro}
 
-Sorting algorithms are used to solve one of the key problems of computer science known as “The sorting problem”. This involves an input sequence of n numbers $a_1, a_2, … , a_n$, where the output is a permutation of the input sequence such that the numbers are ordered in an ascending order. The two main aspects to a sorting algorithm is its time complexity (speed) and its space complexity (memory usage).
+Sorting algorithms are used to solve one of the key problems of computer science known as “The sorting problem”. This involves an input sequence of n numbers $a_1, a_2, … , a_n$, where the output is a permutation of the input sequence such that the numbers are ordered in an ascending or descending order. The two main aspects to a sorting algorithm is its time complexity (speed) and its space complexity (memory usage).
 
-During this investigation we have assessed the performance of the sorting algorithms listed below, under certain assumptions regarding their time complexity. We compared their performance when sorting lists containing different types of elements, as well as their performance as the length of the lists increases. 
+During this investigation we have assessed the performance of the sorting algorithms listed below, with certain assumptions regarding their time complexity. We compared their performance using the Python 'time' function, bench-marking their performance when sorting lists containing various types of elements. In addition we assessed the time-development as the length of the lists increased. 
 
 \section{Theory}\label{sec:theory}
 
@@ -110,7 +110,7 @@ In the following subsections we will provide theory, pseudo-code as well as deta
 \end{itemize}
 
 \subsection{Algorithm 1 - Insertion sort}\label{sec:algo1}
-Insertion sort (listing ~\ref{lst:insertion_algo}) is a simple in place and comparison based sorting algorithm. Best case run-time for this algorithm is:
+Insertion sort listing ~\ref{lst:insertion_algo} is a simple in place and comparison based sorting algorithm. Best case run-time for this algorithm is:
 
 \begin{equation}
   T(n) = \Theta(n) \;.  \label{eq:ins_sort_best}
@@ -147,7 +147,9 @@ The average run-time is also quadratic, making insertion sort a bad choice for s
 
 \subsection{Algorithm 2 - Bubble sort}\label{sec:algo2}
 
-Bubble sort (listing~\ref{lst:bubble_algo}) is know as an inefficient sorting algorithm due to its simplicity. Although bubble sort and insertion sort  grow asymptotically at the same rate $\Theta(n^2)$, the difference in bubble sort and insertion sort lies in the number of comparisons. In contrast to insertion sort, bubble sort can make numerous comparisons that do not necessarily result in a swap, making it computationally less efficient.
+Bubble sort listing~\ref{lst:bubble_algo} is know as a straightforward and simple sorting algorithm. Both when it comes to implementation and understanding. However its main disadvantage is its inefficiency, especially when sorting large arrays. 
+
+Although bubble sort and insertion sort grow asymptotically at the same rate $\Theta(n^2)$, the difference in bubble sort and insertion sort lies in the number of comparisons. In contrast to insertion sort, bubble sort could in the worst case have to make numerous comparisons that do not necessarily result in a swap, making it computationally slower because of the many comparisons. 
 
 \begin{listing}
   % Pseudocode caption above the code.
@@ -178,7 +180,7 @@ Bubble sort (listing~\ref{lst:bubble_algo}) is know as an inefficient sorting al
 
 \subsection{Algorithm 3 - Merge Sort}\label{sec:algo3}
 
-Merge sort (listing~\ref{lst:merge_algo}) is yet another comparison-based sorting algorithm that uses the divide-and-conquer approach which involves recursively merging together two presorted arrays such that the resulting array also is sorted. Merge sort is known to be quicker when sorting larger lists. Unlike insertion sort and bubble sort it does not iterate through the entire list several times. 
+Merge sort listing~\ref{lst:merge_algo} is yet another comparison-based sorting algorithm that uses the divide-and-conquer approach which involves recursively merging together two presorted arrays such that the resulting array also is sorted. Merge sort is known to be quicker when sorting larger lists. Unlike insertion sort and bubble sort it does not iterate through the entire list several times. 
 
 When sorting n objects, merge sort has a consistent average and worst case performance of: 
 
@@ -231,7 +233,7 @@ The implementation we have chosen of merge sort, as well as the most common impl
 
 \subsection{Algorithm 4 - Quick sort}\label{sec:algo4}
 
-Quick sort (listing~\ref{lst:quick_algo}) is an efficient and important in place divide-and-conquer sorting algorithm. When implemented well it can supposedly be about two or three times faster than its main competitors, such as merge sort. 
+Quick sort listing~\ref{lst:quick_algo} is an efficient and important in place divide-and-conquer sorting algorithm. When implemented well it can supposedly be about two or three times faster than its main competitors, such as merge sort. 
 
 It shares the same average time complexity as merge sort. However the worst case time complexity of quick sort is its main disadvantage, and is $\Theta(n^2)$ due to its need of a lot of comparisons in the worst case. Thankfully this can be avoided in almost all cases , making the expected run-time $\Theta(n\lg n)$. 
 
@@ -283,7 +285,7 @@ It shares the same average time complexity as merge sort. However the worst case
 
 \subsection{Algorithm 5 - Merge sort combined}\label{sec:algo5}
 
-Merge sort can be optimized to give "Merge sort combined" (listing~\ref{lst:mergecombined_algo}) by integrating insertion sort and making it a hybrid algorithm. This takes advantage of the fact that insertion sort performs well on smaller lists. It will therefor use fewer comparisons in the worst case than both merge sort and insertion sort, potentially making it a very efficient sorting algorithm.  
+Merge sort can be optimized to give "Merge sort combined" listing~\ref{lst:mergecombined_algo} by integrating insertion sort and making it a hybrid algorithm. This takes advantage of the fact that insertion sort performs well on smaller lists. It will therefor use fewer comparisons in the worst case than both merge sort and insertion sort, potentially making it a very efficient sorting algorithm.  
 
 \begin{listing}
   % Pseudocode caption above the code.
