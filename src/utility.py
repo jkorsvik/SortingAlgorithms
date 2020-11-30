@@ -101,8 +101,60 @@ class ArrayGenerator():
 if __name__ == "__main__":
     # Testing structured data
     gen = ArrayGenerator(seed=12)
-    N = 5
-    x = np.arange(2**N, 0, -1)
-    a = gen.structured_array(N)
-    plt.barh(x, a)
+
+    a = gen.structured_array(6)
+    plt.plot(a)
     plt.show()
+
+
+def random_int_generator(length):
+    """Creates list of integers of given length - with random order"""
+    return list((np.random.randint(-length, length, size=length)))
+
+def random_float_generator(length):
+    """Creates list of decimal numbers of given length - with random order"""
+    return list((np.random.uniform(-length, length, size=length)))
+
+def ordered_generator(length):
+    """Creates list of numbers of given length - with acsending order"""
+    return list(np.arange(1, length))
+
+def reversed_generator(length):
+    """Creates list of numbers of given length - with descending order"""
+    return list(np.flipud(ordered_generator(length)))
+
+
+def benchmark(algorithm, given_list):
+    """ Returns the runtime of a sorting algorithim on a given list."""
+    
+    rng = np.random.default_rng(12235) 
+    clock = timeit.Timer(stmt='sort_func(copy(data))', globals={'sort_func': algorithm,
+                                                                'data': given_list , 'copy': copy.copy})
+    n_ar, t_ar = clock.autorange()
+    t = clock.repeat(repeat=10, number=n_ar)
+    return np.average(t)/n_ar
+
+
+
+def benchmark_algos_and_types(algorithm, list_size):
+    """ Returns the time for given list type and return a dictionary with the results. """
+    
+    integer_results = [( _ , benchmark(algorithm, random_int_generator(_))) 
+                      for _ in range(0, list_size, 50)]
+    
+    float_results = [( _ , benchmark(algorithm, random_float_generator(_))) 
+                     for _ in range(0, list_size, 50)]
+    
+    ascending_results = [( _ , benchmark(algorithm, ordered_generator(_))) 
+                         for _ in range(0, list_size, 50)]
+    
+    descending_result = [( _ , benchmark(algorithm, reversed_generator(_))) 
+                         for _ in range(0, list_size, 50)]
+    
+    
+    all_results = {'Random integers' : integer_results, 
+                   'Random float' : float_results, 
+                   'Ascending integers' : ascending_results,
+                   'Descending integers' : descending_result}
+    
+    return all_results
