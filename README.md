@@ -4,7 +4,7 @@
 - Yva Sandvik
 
 ## Overview
-
+Algorithms and utility can be found in src directory.
 
 ## Setup 
 
@@ -24,6 +24,13 @@ to deactivate:
 conda deactivate
 ```
 
-
 ### Sources:
 Look up bibtex file
+
+# Report
+
+<object data="./report/INF221_final_draft (2).pdf" type="application/pdf" width="700px" height="5000px">
+    <embed src="http://yoursite.com/the.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="./report/INF221_final_draft (2).pdf">Download PDF</a>.</p>
+    </embed>
+</object>
