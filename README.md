@@ -29,8 +29,8 @@ Look up bibtex file
 
 # Report
 
-<object data="https://github.com/jkorsvik/SortingAlgorithms/blob/master/report/INF221_final_draft%20(2).pdf" type="pdf" width="700px" height="10000px">
+<object data="https://github.com/jkorsvik/SortingAlgorithms/raw/master/report/INF221_final_draft%20(2).pdf" type="pdf" width="700px" height="10000px">
     <embed src="http://yoursite.com/the.pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="./report/INF221_final_draft (2).pdf">Download PDF</a>.</p>
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/jkorsvik/SortingAlgorithms/raw/master/report/INF221_final_draft%20(2).pdf">Download PDF</a>.</p>
     </embed>
 </object>
