@@ -29,7 +29,7 @@ Look up bibtex file
 
 # Report
 
-<object data="./report/INF221_final_draft (2).pdf" type="application/pdf" width="700px" height="5000px">
+<object data="./report/INF221_final_draft (2).pdf" type="pdf" width="700px" height="10000px">
     <embed src="http://yoursite.com/the.pdf">
         <p>This browser does not support PDFs. Please download the PDF to view it: <a href="./report/INF221_final_draft (2).pdf">Download PDF</a>.</p>
     </embed>
